@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "description": "simple project generator library",
   "main": "lib/geny.js",
-  "private": true,
   "keywords": [
     "project",
     "generator",
-    "generation"
+    "directory"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MixinLabs/genyjs.git"
+  },
   "author": "Arturas Lebedevas <nsmeta@gmail.com>",
   "license": "BSD-2-Clause",
   "devDependencies": {
