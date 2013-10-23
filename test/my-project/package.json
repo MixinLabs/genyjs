@@ -1,0 +1,6 @@
+{
+         name: My Project,
+      version: 0.1.0,
+      license: BSD-2-Clause,
+  description: Simple node.js project generated
+}
