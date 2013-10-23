@@ -114,4 +114,6 @@ describe('geny.js', function () {
     fs.existsSync(ROOT_DIR + 'zoo/cow').should.be.false;
     fs.existsSync(ROOT_DIR + 'zoo').should.be.false;
   });
+
+  it('should create empty file, if no template was specified');
 });
