@@ -19,7 +19,8 @@
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-contrib-watch": "~0.5.3",
     "should": "~2.0.2",
-    "grunt-mocha-test": "~0.7.0"
+    "grunt-mocha-test": "~0.7.0",
+    "handlebars": "~1.0.12"
   },
   "dependencies": {
     "handlebars": "~1.0.12",

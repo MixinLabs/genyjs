@@ -1,3 +1,5 @@
+Handlebars = require 'handlebars'
+
 module.exports = (grunt) ->
   
   grunt.initConfig
@@ -18,5 +20,11 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-mocha-test'
 
   # Custom tasks
-  grunt.registerTask 'test', ['mochaTest']
-  grunt.registerTask 'default', ['jshint', 'mochaTest']
+  grunt.registerTask 'readme', ->
+    readmePath = "#{__dirname}/README.md"
+    tmpl = grunt.file.read "#{readmePath}.hbs"
+    tmpl = Handlebars.compile tmpl
+    grunt.file.write readmePath, tmpl(grunt.config 'pkg')
+
+  grunt.registerTask 'test', ['readme', 'mochaTest']
+  grunt.registerTask 'default', ['jshint', 'readme', 'mochaTest']

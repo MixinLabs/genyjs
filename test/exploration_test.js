@@ -63,8 +63,8 @@ var tGreeter = geny(function (data) {
 
 describe('geny.js', function () {
   after(function () {
-    // tGreeter.destroy();
-    // tNodeProject.destroy();
+    tGreeter.destroy();
+    tNodeProject.destroy();
   });
 
   it('should create project structure from nested template', function () {
