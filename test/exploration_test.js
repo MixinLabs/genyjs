@@ -62,9 +62,9 @@ var tGreeter = geny(function (data) {
 });
 
 describe('geny.js', function () {
-  after(function () {
-    tGreeter.destroy();
-    tNodeProject.destroy();
+  afterEach(function () {
+    tGreeter.destroy(ROOT_DIR);
+    tNodeProject.destroy(ROOT_DIR, 'my-project');
   });
 
   it('should create project structure from nested template', function () {
@@ -102,7 +102,7 @@ describe('geny.js', function () {
       name: 'Luke'
     });
 
-    tGreeter.destroy();
+    tGreeter.destroy(ROOT_DIR);
 
     fs.existsSync(ROOT_DIR + 'zoo/human/msg.txt').should.be.false;
     fs.existsSync(ROOT_DIR + 'zoo/human').should.be.false;
@@ -116,4 +116,12 @@ describe('geny.js', function () {
   });
 
   it('should create empty file, if no template was specified');
+
+  it("#verify() - should verify the project's structure", function () {
+    tGreeter.create(ROOT_DIR, {
+      name: 'Verify'
+    });
+    tGreeter.verify(ROOT_DIR).should.be.true;
+    tNodeProject.verify(ROOT_DIR, 'verify-project').should.be.false;
+  });
 });
