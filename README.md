@@ -1,4 +1,4 @@
-# geny v0.1.1
+# geny v0.1.2
 
 ### Simple API to create fs/project generators
 
