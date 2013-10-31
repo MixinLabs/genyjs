@@ -32,8 +32,12 @@ var tNodeProject = geny(function (projectName, data) {
 
 var tOnExists = geny(function (onExists) {
 
-  this.on('exists', function (path) {
-    return onExists;
+  // Type is either dir or file
+  this.hook(function (type, name) {
+    if (onExists === false && fs.existsSync(this.rootDir + name)) {
+      return false;
+    }
+    return true;
   });
 
   this.dir('on_exists', function () {
@@ -77,9 +81,9 @@ var tGreeter = geny(function (data) {
 });
 
 describe('geny.js', function () {
-  after(function () {
-    tGreeter.destroy();
-    tNodeProject.destroy();
+  afterEach(function () {
+    tGreeter.destroy(ROOT_DIR);
+    tNodeProject.destroy(ROOT_DIR, 'my-project');
   });
 
   it('should create project structure from nested template', function () {
@@ -117,7 +121,7 @@ describe('geny.js', function () {
       name: 'Luke'
     });
 
-    tGreeter.destroy();
+    tGreeter.destroy(ROOT_DIR);
 
     fs.existsSync(ROOT_DIR + 'zoo/human/msg.txt').should.be.false;
     fs.existsSync(ROOT_DIR + 'zoo/human').should.be.false;
@@ -130,12 +134,20 @@ describe('geny.js', function () {
     fs.existsSync(ROOT_DIR + 'zoo').should.be.false;
   });
 
+  it("#verify() - should verify the project's structure", function () {
+    tGreeter.create(ROOT_DIR, {
+      name: 'Verify'
+    });
+    tGreeter.verify(ROOT_DIR).should.be.true;
+    tNodeProject.verify(ROOT_DIR, 'verify-project').should.be.false;
+  });
+
   it('should create empty file, if no template was specified');
 
   describe('@on', function () {
     describe('"exists"', function () {
       it('should stop geneation when file already exists', function () {
-        var test_file_path = ROOT_DIR + 'hello.txt',
+        var test_file_path = ROOT_DIR + 'on_exists/hello.txt',
             test_file_data = 'Hello!',
             data;
 
@@ -151,7 +163,7 @@ describe('geny.js', function () {
         tOnExists.destroy(ROOT_DIR);
       });
       it('should continue when file already exists', function () {
-        var test_file_path = ROOT_DIR + 'hello.txt',
+        var test_file_path = ROOT_DIR + 'on_exists/hello.txt',
             test_file_data = 'Hello!',
             data;
 
